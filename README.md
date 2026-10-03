@@ -3,6 +3,15 @@
 This RClone fork contains a Real-Debrid backend implementation allowing you
 to serve your RealDebrid /torrents directory as a virtual drive.
 
+## Origin & Acknowledgements
+
+This project is based on the Real-Debrid backend implementation originally
+created by [itsToggle](https://github.com/itsToggle) in
+[itsToggle/rclone_RD](https://github.com/itsToggle/rclone_RD). Because the
+original repository is now archived, this repository maintains and aligns the
+Real-Debrid integration with newer releases of official
+[rclone](https://github.com/rclone/rclone) (currently aligned with `v1.75.0`).
+
 ## Setting up the remote
 
 1. Run `rclone config`
