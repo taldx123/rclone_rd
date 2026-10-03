@@ -24,7 +24,7 @@ permissions:
 
 jobs:
   build-image:
-    if: inputs.manual || (github.repository == 'taldx123/rclone_RD' && github.event_name != 'pull_request')
+    if: inputs.manual || ((github.repository == 'taldx123/rclone_rd' || github.repository == 'taldx123/rclone_RD') && github.event_name != 'pull_request')
     timeout-minutes: 60
     strategy:
       fail-fast: false
@@ -111,7 +111,7 @@ jobs:
           images: |
             ghcr.io/${{ env.REPO_NAME }}
           labels: |
-            org.opencontainers.image.url=https://github.com/taldx123/rclone_RD/pkgs/container/rclone_rd
+            org.opencontainers.image.url=https://github.com/taldx123/rclone_rd/pkgs/container/rclone_rd
             org.opencontainers.image.vendor=${{ github.repository_owner }}
             org.opencontainers.image.authors=rclone <https://github.com/rclone>
             org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
@@ -221,7 +221,7 @@ jobs:
           images: |
             ghcr.io/${{ env.REPO_NAME }}
           labels: |
-            org.opencontainers.image.url=https://github.com/taldx123/rclone_RD/pkgs/container/rclone_rd
+            org.opencontainers.image.url=https://github.com/taldx123/rclone_rd/pkgs/container/rclone_rd
             org.opencontainers.image.vendor=${{ github.repository_owner }}
             org.opencontainers.image.authors=rclone <https://github.com/rclone>
             org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
