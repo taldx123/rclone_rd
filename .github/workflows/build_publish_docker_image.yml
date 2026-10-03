@@ -24,7 +24,7 @@ permissions:
 
 jobs:
   build-image:
-    if: inputs.manual || ((github.repository == 'taldx123/rclone_rd' || github.repository == 'taldx123/rclone_RD') && github.event_name != 'pull_request')
+    if: inputs.manual || (github.repository == 'taldx123/rclone_rd' && github.event_name != 'pull_request')
     timeout-minutes: 60
     strategy:
       fail-fast: false

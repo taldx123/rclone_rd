@@ -20,7 +20,7 @@ permissions:
 
 jobs:
   build_docker_volume_plugin:
-    if: inputs.manual || github.repository == 'taldx123/rclone_rd' || github.repository == 'taldx123/rclone_RD'
+    if: inputs.manual || github.repository == 'taldx123/rclone_rd'
     name: Build docker plugin job
     runs-on: ubuntu-latest
     steps:

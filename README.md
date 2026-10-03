@@ -1,4 +1,4 @@
-# RClone_RD (Real-Debrid Fork)
+# rclone_rd (Real-Debrid Fork)
 
 This RClone fork contains a Real-Debrid backend implementation allowing you
 to serve your RealDebrid /torrents directory as a virtual drive.
