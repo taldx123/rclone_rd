@@ -261,7 +261,7 @@ func ServePluginOK(w http.ResponseWriter, r *http.Request, pluginsMatchResult []
 
 	director := getDirectorForProxy(origin)
 
-	pluginsProxy.Director = director
+	pluginsProxy.Director = director //nolint:staticcheck // SA1019: ReverseProxy.Director deprecated in Go 1.26
 	pluginsProxy.ServeHTTP(w, r)
 	return true
 }

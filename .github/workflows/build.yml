@@ -24,7 +24,7 @@ permissions:
 
 jobs:
   build:
-    if: inputs.manual || ((github.repository == 'taldx123/rclone_rd' || github.repository == 'taldx123/rclone_RD') && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name))
+    if: inputs.manual || (github.repository == 'taldx123/rclone_rd' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name))
     timeout-minutes: 60
     defaults:
       run:
@@ -32,12 +32,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        job_name: ['linux', 'linux_386', 'mac_amd64', 'mac_arm64', 'windows', 'other_os', 'go1.25']
+        job_name: ['linux', 'linux_386', 'mac_amd64', 'mac_arm64', 'windows', 'other_os', 'go1.26']
 
         include:
           - job_name: linux
             os: ubuntu-latest
-            go: '~1.26.5'
+            go: '~1.27.0'
             gotags: cmount
             build_flags: '-include "^linux/"'
             check: true
@@ -48,14 +48,14 @@ jobs:
 
           - job_name: linux_386
             os: ubuntu-latest
-            go: '~1.26.5'
+            go: '~1.27.0'
             goarch: 386
             gotags: cmount
             quicktest: true
 
           - job_name: mac_amd64
             os: macos-latest
-            go: '~1.26.5'
+            go: '~1.27.0'
             gotags: 'cmount'
             build_flags: '-include "^darwin/amd64" -cgo'
             quicktest: true
@@ -64,14 +64,14 @@ jobs:
 
           - job_name: mac_arm64
             os: macos-latest
-            go: '~1.26.5'
+            go: '~1.27.0'
             gotags: 'cmount'
             build_flags: '-include "^darwin/arm64" -cgo -macos-arch arm64 -cgo-cflags=-I/usr/local/include -cgo-ldflags=-L/usr/local/lib'
             deploy: true
 
           - job_name: windows
             os: windows-latest
-            go: '~1.26.5'
+            go: '~1.27.0'
             gotags: cmount
             cgo: '0'
             build_flags: '-include "^windows/"'
@@ -81,14 +81,14 @@ jobs:
 
           - job_name: other_os
             os: ubuntu-latest
-            go: '~1.26.5'
+            go: '~1.27.0'
             build_flags: '-exclude "^(windows/|darwin/|linux/)"'
             compile_all: true
             deploy: true
 
-          - job_name: go1.25
+          - job_name: go1.26
             os: ubuntu-latest
-            go: '~1.25.12'
+            go: '~1.26.6'
             quicktest: true
             racequicktest: true
 
@@ -250,7 +250,7 @@ jobs:
           RCLONE_CONFIG_PASS: ${{ secrets.RCLONE_CONFIG_PASS }}
         # working-directory: '$(modulePath)'
         # Deploy binaries if enabled in config && not a PR && not a fork
-        if: env.RCLONE_CONFIG_PASS != '' && matrix.deploy && github.head_ref == '' && (github.repository == 'taldx123/rclone_rd' || github.repository == 'taldx123/rclone_RD')
+        if: env.RCLONE_CONFIG_PASS != '' && matrix.deploy && github.head_ref == '' && github.repository == 'taldx123/rclone_rd'
 
       - name: Trim module cache before saving
         if: always()
@@ -262,7 +262,7 @@ jobs:
           find "$modcache/cache/download" -name '*.zip' -type f -delete 2>/dev/null || true
 
   lint:
-    if: inputs.manual || ((github.repository == 'taldx123/rclone_rd' || github.repository == 'taldx123/rclone_RD') && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name))
+    if: inputs.manual || (github.repository == 'taldx123/rclone_rd' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name))
     timeout-minutes: 30
     name: "lint"
     runs-on: ubuntu-latest
@@ -283,7 +283,7 @@ jobs:
         id: setup-go
         uses: actions/setup-go@v7
         with:
-          go-version: '~1.26.5'
+          go-version: '~1.27.0'
           check-latest: true
           cache: false
           
@@ -376,7 +376,7 @@ jobs:
           find "$modcache/cache/download" -name '*.zip' -type f -delete 2>/dev/null || true
 
   android:
-    if: inputs.manual || ((github.repository == 'taldx123/rclone_rd' || github.repository == 'taldx123/rclone_RD') && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name))
+    if: inputs.manual || (github.repository == 'taldx123/rclone_rd' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name))
     timeout-minutes: 30
     name: "android-all"
     runs-on: ubuntu-latest
@@ -398,7 +398,7 @@ jobs:
         id: setup-go
         uses: actions/setup-go@v7
         with:
-          go-version: '~1.26.5'
+          go-version: '~1.27.0'
           # Caching is handled explicitly below to share the module cache
           # with the other jobs - see the build job for the rationale.
           cache: false
@@ -500,7 +500,7 @@ jobs:
         env:
           RCLONE_CONFIG_PASS: ${{ secrets.RCLONE_CONFIG_PASS }}
         # Upload artifacts if not a PR && not a fork
-        if: env.RCLONE_CONFIG_PASS != '' && github.head_ref == '' && (github.repository == 'taldx123/rclone_rd' || github.repository == 'taldx123/rclone_RD')
+        if: env.RCLONE_CONFIG_PASS != '' && github.head_ref == '' && github.repository == 'taldx123/rclone_rd'
 
       - name: Trim module cache before saving
         if: always()
